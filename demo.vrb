@@ -1,0 +1,11 @@
+\frametitle{Fundamentos clave}
+\begin{block}{Arquitecturas de las redes cuánticas}
+    Las arquitecturas de las ROCC presentan grandes diferencias con las redes de comunicación clásicas convencionales, debido a que los estados cuánticos no pueden ser clonados, y los ruidos cuánticos presentes en el canal y en los dispositivos no tienen equivalentes con su contraparte clásica.
+  \end{block}
+  \begin{block}{Es necesario romper el paradigma clásico}
+    Al abarcar el estudio de las ROCC, se entra en el campo de la \alert{mecánica cuántica}, por lo tanto surgen conceptos nuevos sin analogía con las comunicaciones clásicas.
+  \end{block}
+
+  \begin{block}{¿Por qué cuántica?}
+    Las leyes de la mecánica cuántica aportan grandes ventajas en cuanto a seguridad informática, imposibles de lograr con las comunicaciones cuánticas convencionales.
+  \end{block}

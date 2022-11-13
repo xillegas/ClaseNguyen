@@ -1,0 +1,353 @@
+\usepackage[letterpaper , top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage[utf8]{inputenc} 			%Paquete codificación del *.tex 
+\usepackage[spanish]{babel} 			%Paquete del lenguaje de caracteres	en español.
+\selectlanguage{spanish} 				%Seleccion de lenguaje del documento.
+\usepackage[T1]{fontenc}  				%(este comando parte bien las palabras en castellano)
+\usepackage{amsfonts}					%Paquete de fuentes matemáticas.
+\usepackage{times}						%Paquete de fuente times.
+\usepackage{amsmath}					%Paquete matemático.
+\usepackage{amssymb}					%Paquete de matemático de símbolos.
+\usepackage{physics}					%Paquete de herramientas de física.
+
+\newcommand{\K}[1]{$\ket{#1}$} 
+\begin{document}
+
+\chapter{Cálculos Matemáticos}
+\section{Codificación de redes cuánticas simétricas}
+En esta sección del apéndice, se muestran los cálculos referentes al método de codificación propuesto por Nguyen y colaboradores %\cite{Nguyen2017TowardsTQ}. 
+\par
+Por tratarse de operaciones no unitarias los estados al final de la codificación no se encuentran normalizados, sin embargo conociendo que estos estados finales serán máximamente entrelazados se entiende que al normalizar se obtiene que la amplitud de probabilidad de cada par EPR es de $\dfrac{1}{\sqrt{2}}$.
+\subsection{Red mariposa N=1, M=2}
+Se muestran los cálculos de la codificación de red tipo mariposa, donde $M=2$ representan dos pares de usuarios emisor y receptor, y $N=1$ representa la cantidad de saltos entre las repetidoras de la línea troncal. \par
+Siguiendo la Figura \ref{fig:butterfly4} al inicio se tienen siete estados entrelazados entre cada vértice de la red que corresponden al siguiente estado inicial
+\begin{align*}
+\ket{\psi_{inicial}} = \ket{MN}\ket{KL}\ket{IJ}\ket{GH}\ket{EF}\ket{CD}\ket{AB}
+\end{align*}
+\textbf{Fase 1:} Se aplican las operaciones $Con^{A}_{C \rightarrow D}$, y $Con^{E}_{G \rightarrow H}$. Esto resulta en:
+\begin{align*}
+\ket{\psi_{1}} = \ket{MN} \ket{KL} \ket{IJ} 
+[\frac{1}{\sqrt{2}} (\ket{000}_{EFH} + \ket{111}_{EFH})] 
+[\frac{1}{\sqrt{2}} (\ket{000}_{ABD} + \ket{111}_{ABD})] 
+\end{align*}
+\textbf{Fase 2:} Se aplica $ Add^{D,H}_{I \rightarrow J} $. Reescribimos $\ket{\psi_{1}}$
+\begin{align*}
+\ket{\psi_{1}}=\ket{MN}\ket{KL}\ket{IJ} ( 
+& \ket{000}_{EFH}\ket{000}_{ABD} + \ket{000}_{EFH}\ket{111}_{ABD} + \\
+& \ket{111}_{EFH}\ket{000}_{ABD} + \ket{111}_{EFH}\ket{111}_{ABD} + 
+\end{align*}
+Se aplica la operación.
+\begin{align*}
+\ket{\psi_{2}} =& Add^{D,H}_{I \rightarrow J}  \ket{\psi_{1}} \\
+\ket{\psi_{2}} =& 
+\ket{MN} \ket{KL} \ket{000}_{EFH}\ket{000}_{ABD}\ket{0}_J +\ket{MN}\ket{KL}\ket{000}_{EFH}\ket{111}_{ABD} \ket{1}_J \\
++& \ket{MN} \ket{KL} \ket{111}_{EFH}\ket{000}_{ABD}\ket{1}_J +\ket{MN}\ket{KL}\ket{111}_{EFH}\ket{111}_{ABD} \ket{0}_J
+\end{align*}
+Hasta ahora, se han descartado las particiones ``C'', ``G'', y ``I''. \\
+\textbf{Paso 3:} Se aplica la operación $Fan^{J}_{K\rightarrow L, M\rightarrow N}$. Recordando que las operaciones de codificación están compuestas de operaciones unitarias y medidas, separamos esta operación ``Fan'' en partes. \\
+Después del $CNOT^J_{K,M}$.
+\begin{align*}
+\ket{\psi_{3.a}} = & \qty[\frac{1}{2}(\ket{00}_{MN}+\ket{11}_{MN})(\ket{00}_{KL}+\ket{11}_{KL})]\ket{000}_{EFH}\ket{000}_{ABD}\ket{0}_{J} \\
+                 + & \qty[\frac{1}{2}(\ket{10}_{MN}+\ket{01}_{MN})(\ket{10}_{KL}+\ket{01}_{KL})]\ket{000}_{EFH}\ket{111}_{ABD}\ket{1}_{J} \\
+                 + & \qty[\frac{1}{2}(\ket{10}_{MN}+\ket{01}_{MN})(\ket{10}_{KL}+\ket{01}_{KL})]\ket{111}_{EFH}\ket{000}_{ABD}\ket{1}_{J} \\
+                 + & \qty[\frac{1}{2}(\ket{00}_{MN}+\ket{11}_{MN})(\ket{00}_{KL}+\ket{11}_{KL})]\ket{111}_{EFH}\ket{111}_{ABD}\ket{0}_{J} 
+\end{align*}
+Después de medir en ``M'' y eliminar el registro y controlar la compuerta $X$.
+\begin{align*}
+\ket{\psi_{3.b}} = & \qty[ \frac{1}{\sqrt{2}} \ket{0}_{N}(\ket{00}_{KL}+\ket{11}_{KL})]\ket{000}_{EFH}\ket{000}_{ABD}\ket{0}_{J} \\
+                 + & \qty[ \frac{1}{\sqrt{2}} \ket{1}_{N}(\ket{10}_{KL}+\ket{01}_{KL})]\ket{000}_{EFH}\ket{111}_{ABD}\ket{1}_{J} \\
+\end{align*}
+Después de medir en ``K'' y eliminar el registro y controlar $X$.
+\begin{align*}
+\ket{\psi_{3.c}}
+= & \ket{0}_{N} \ket{0}_{L} \ket{000}_{EFH} \ket{000}_{ABD} \ket{0}_{J}
+  + \ket{1}_{N} \ket{1}_{L} \ket{000}_{EFH} \ket{111}_{ABD} \ket{1}_{J} \\
++ & \ket{1}_{N} \ket{1}_{L} \ket{111}_{EFH} \ket{000}_{ABD} \ket{1}_{J} 
+  + \ket{0}_{N} \ket{0}_{L} \ket{111}_{EFH} \ket{111}_{ABD} \ket{0}_{J} 
+\end{align*}
+Reescribiendo, al finalizar este paso:
+\begin{align*}
+\ket{\psi_{3}}=&\ket{000}_{EFH} \ket{000}_{ABD} \ket{000}_{JNL} +\ket{000}_{EFH} \ket{111}_{ABD} \ket{111}_{JNL} \\
++&\ket{111}_{EFH} \ket{000}_{ABD} \ket{111}_{JNL} + \ket{111}_{EFH} \ket{111}_{ABD} \ket{000}_{JNL} 
+\end{align*}
+\textbf{Paso 4:} Operaciones $ CNOT_{L,B} $ y $ CNOT_{N,F} $.
+\begin{align*}
+\ket{\psi_{4}} = 
+  & \ket{000}_{EFH} \ket{000}_{ABD} \ket{000}_{JNL} + \ket{010}_{EFH} \ket{101}_{ABD} \ket{111}_{JNL} \\
+ +& \ket{101}_{EFH} \ket{010}_{ABD} \ket{111}_{JNL} + \ket{111}_{EFH} \ket{111}_{ABD} \ket{000}_{JNL}  
+\end{align*}
+\textbf{Paso 5:} Operaciones $ Rem_{L \rightarrow J} $ y  $ Rem_{N \rightarrow J} $ 
+\begin{align*}
+\ket{\psi_5}=  Rem_{L \rightarrow J} \ket{\psi_4} = Rem_{L \rightarrow J} & [ \ket{000}_{JNL}(\ket{000}_{EFH} \ket{000}_{ABD}+\ket{111}_{EFH} \ket{111}_{ABD}) \\
++ & \ket{111}_{JNL}(\ket{010}_{EFH} \ket{101}_{ABD}+\ket{101}_{EFH} \ket{010}_{ABD})]
+\end{align*}
+Hadamard en ``L'':
+\begin{align*}
+\ket{\psi_{5.a}}= & \dfrac{1}{\sqrt{2}}  (\ket{000}_{JNL}+\ket{001}_{JNL})(\ket{000}_{EFH}\ket{000}_{ABD}+\ket{111}_{EFH}\ket{111}_{ABD}) \\
++ & \dfrac{1}{\sqrt{2}} (\ket{110}_{JNL}-\ket{111}_{JNL})(\ket{010}_{EFH} \ket{101}_{ABD}+\ket{101}_{EFH} \ket{010}_{ABD})
+\end{align*}
+Medir en ``L'' y controlar $Z$ en ``J'' y descartar ``L'':
+\begin{align*}
+\ket{\psi_{5.b}} & = \ket{00}_{JN}(\ket{000}_{EFH}\ket{000}_{ABD}+\ket{111}_{EFH} \ket{111}_{ABD}) \\
+& + \ket{11}_{JN}(\ket{010}_{EFH}\ket{101}_{ABD}+\ket{101}_{EFH} \ket{010}_{ABD})
+\end{align*}
+Ahora se realiza el segundo Removal. Hadamard en ``N'':
+\begin{align*}
+\ket{\psi_{5.c}} &= \dfrac{1}{\sqrt{2}} (\ket{00}_{JN}+\ket{01}_{JN})(\ket{000}_{EFH}\ket{000}_{ABD}+\ket{111}_{EFH} \ket{111}_{ABD}) \\
+&+ \dfrac{1}{\sqrt{2}} (\ket{10}_{JN}-\ket{11}_{JN})(\ket{010}_{EFH}\ket{101}_{ABD}+\ket{101}_{EFH} \ket{010}_{ABD})
+\end{align*}
+Medir en ``N'' y controlar compuerta $Z$, se descarta ``N''.
+\begin{align*}
+\ket{\psi_5} = & \ket{0}_{J}(\ket{000000}_{EFHABD}+\ket{111111}_{EFHABD}) \\
++ & \ket{1}_{J}(\ket{010101}_{EFHABD}+\ket{101010}_{EFHABD})
+\end{align*}
+\textbf{Paso 6:} Operación $RemAdd_{J \rightarrow D,H}$, se realiza un Hadamard en ``J'' se mide y se controlan las compuertas $Z$ en ``D'' y ``H'', resulta en:
+\begin{align*}
+\ket{\psi_6} = \ket{000000}_{EFHABD}+\ket{010101}_{EFHABD}+\ket{101010}_{EFHABD}+\ket{111111}_{EFHABD} 
+\end{align*}
+\textbf{Paso 7:} Operación  $ Rem_{D \rightarrow A} $ y  $ Rem_{H \rightarrow E} $, esto queda en:
+\begin{align*}
+\ket{\psi_7} = \ket{00}_{EF} \ket{00}_{AB} + \ket{01}_{EF} \ket{10}_{AB} + \ket{10}_{EF} \ket{01}_{AB} + \ket{11}_{EF} \ket{11}_{AB} 
+\end{align*}
+Esta última es la operación final, reescribiendo tenemos:
+\begin{align*}
+\ket{\psi_{f}} = \ket{0}_{A} \ket{0}_{F} \ket{0}_{B}\ket{0}_{E} + \ket{1}_{A}\ket{1}_{F}\ket{0}_{B}\ket{0}_{E}+\ket{0}_{A}\ket{0}_{F}\ket{1}_{B}\ket{1}_{E}+\ket{1}_{A}\ket{1}_{F}\ket{1}_{b}\ket{1}_{E}
+\end{align*}
+Factorizando
+\begin{align*}
+\ket{\psi_{f}} = \ket{00}_{AF}  (\ket{00}_{BE}+\ket{11}_{BE}) + \ket{11}_{AF}(\ket{00}_{BE}+\ket{11}_{BE})
+\end{align*}
+Se obtiene como estado final:
+\begin{align*}
+\ket{\psi_f} = (\ket{00}_{AF}+\ket{11}_{AF})(\ket{00}_{BE}+\ket{11}_{BE})
+\end{align*}
+
+\subsection{Red mariposa N=2, M=2}
+En esta parte se estudia el caso de dos saltos entre las repetidoras del enlace troncal (backbone), lo que serían ocho pares de qubits entrelazados entre cada nodo de la red, representados por el estado inicial $\ket{\psi_{inicial}}$
+\begin{align*}
+\ket{\psi_{inicial}} = \ket{MN}\ket{KL}\ket{I_1 J_1}\ket{I_2 J_2}\ket{GH}\ket{EF}\ket{CD}\ket{AB}
+\end{align*}
+\textbf{Paso 1:} De manera muy similar al caso anterior, el estado inicial luego de las operaciones $Con^{A}_{C \rightarrow D}$, y $Con^{E}_{G \rightarrow H}$ se tiene:
+\begin{align*}
+  \ket{\psi_{1}} = \ket{MN} \ket{KL} \ket{I_1 J_1}\ket{I_2 J_2}
+[\frac{1}{\sqrt{2}} (\ket{000}_{EFH} + \ket{111}_{EFH})] 
+[\frac{1}{\sqrt{2}} (\ket{000}_{ABD} + \ket{111}_{ABD})] 
+\end{align*} 
+\textbf{Paso 2:} El objetivo de esta fase (nueva en comparación al caso anterior) es el de conectar los dos pares del troncal, de forma que $\ket{I_1 J_1}\ket{I_2 J_2}$ se convierta en $\ket{I_1 J_2}$, aplicando las operaciones, luego de $Con^{J_1}_{I_2 \rightarrow J_2}$ se tiene
+\begin{align*}
+\ket{\psi_{2.a}} = \ket{MN} \ket{KL} (\ket{000}_{I_1 J_1 J_2}+\ket{111}_{I_1 J_1 J_2}) (\ket{000}_{EFH} + \ket{111}_{EFH}) (\ket{000}_{ABD} + \ket{111}_{ABD})
+\end{align*}
+luego del $Rem_{J_1 \rightarrow I_1}$ concluye el paso 2.
+\begin{align*}
+\ket{\psi_{2}} =  \ket{MN} \ket{KL} (\ket{00}_{I_1 J_2}+\ket{11}_{I_1 J_2}) (\ket{000}_{EFH} + \ket{111}_{EFH}) (\ket{000}_{ABD} + \ket{111}_{ABD})
+\end{align*}
+\textbf{Paso 3:} Acá se repite el mismo protocolo anterior, vemos que la operación Add realiza CNOTs donde el target es la partición ``$I_1$''
+\begin{align*}
+\ket{\psi_{2}} = Add^{D,H}_{I_1 \rightarrow J_2} \ket{\psi_1} 
+\end{align*}
+Luego de realizar las operaciones CNOT:
+\begin{align*}
+\ket{\psi_{2.a}} =  \ket{MN}\ket{KL}
+[ & \ket{00}_{I_1 J_2} \ket{000}_{EFH} \ket{000}_{ABD} + \ket{10}_{I_1 J_2} \ket{000}_{EFH} \ket{111}_{ABD} \\
++ & \ket{10}_{I_1 J_2} \ket{111}_{EFH} \ket{000}_{ABD} + \ket{00}_{I_1 J_2} \ket{111}_{EFH} \ket{111}_{ABD} \\
++ & \ket{11}_{I_1 J_2} \ket{000}_{EFH} \ket{000}_{ABD} + \ket{01}_{I_1 J_2} \ket{000}_{EFH} \ket{111}_{ABD} \\
++ & \ket{01}_{I_1 J_2} \ket{111}_{EFH} \ket{000}_{ABD} + \ket{11}_{I_1 J_2} \ket{111}_{EFH} \ket{111}_{ABD} ]
+\end{align*}
+Luego se realiza la segunda parte del Add, medir, descartar ``$I_1$'' y controlar $X$ en ``$J_2$''.
+\begin{align*}
+\ket{\psi_{2.b}} =  \ket{MN}\ket{KL} 
+[ & \ket{0}_{J_2} \ket{000}_{EFH} \ket{000}_{ABD} \\
++ & \ket{0}_{J_2} \ket{111}_{EFH} \ket{111}_{ABD} \\
++ & \ket{1}_{J_2} \ket{000}_{EFH} \ket{111}_{ABD} \\
++ & \ket{1}_{J_2} \ket{111}_{EFH} \ket{000}_{ABD}]
+\end{align*}
+Se puede notar que este paso así como los siguientes, repiten el mismo proceso de la red anterior que incluía un único salto N=1. Apreciando la similitud entre $\ket{I_1 J_2}$ con $\ket{IJ}$ tenemos entonces \par \noindent
+\textbf{Paso 4,5,6,7,8:} De la mano con lo mencionado al final del paso anterior, se repiten las mismas operaciones del caso anterior (N=1, M=2) a partir del paso 3,  dando como resultado final:
+\begin{align*}
+\ket{\psi_f} =  (\ket{00}_{AF}+\ket{11}_{AF})(\ket{00}_{BE}+\ket{11}_{BE})
+\end{align*}
+
+\subsection{Red mariposa en el caso de N saltos y M=2 usuarios}
+El caso anterior puede generalizarse para N arbitrario de saltos entre repetidores, lo que implica N pares entrelazados entre cada repetidor. \par
+El cambio ocurre en el paso 2 como se indicó en la sección respectiva de la codificación de este modelo de red, el cálculo es similar al caso previo salvo por este paso 2 que conecta todo el troncal, realizando Connect y Removal sucesivamente hasta lograrlo.
+\subsection{Red mariposa N=2, M=4}
+El estado inicial es el mismo mostrado en la sección respectiva tomado de la figura respectiva, sin embargo, para comprender mejor se reordena y se muestra el estado inicial de la forma siguiente:
+\begin{align*}
+\ket{\psi_{inicial}} = &\ket{M_2 N_2}\ket{K_2 L_2}\ket{M_1 N_1} \ket{K_1 L_1}
+\qquad  \longleftarrow \text{particiones entre repetidores y target}\\
+& \ket{I_{22} J_{22}}  \ket{I_{21} J_{21}}  \ket{I_{12} J_{12}}  \ket{I_{11} J_{11}} 
+\qquad  \longleftarrow \text{particiones de los repetidores}\\
+&  \ket{G_2 H_2} \ket{G_1 H_1} \ket{C_2 D_2} \ket{C_1 D_1} 
+\qquad  \longleftarrow \text{particiones entre repetidores y source}\\
+& \ket{E_2 F_2} \ket{A_2 B_2}\ket{E_1 F_1}\ket{A_1 B_1}
+\qquad  \longleftarrow \text{particiones entre source y target}
+\end{align*}
+\textbf{Paso 1:} Se realizan las operaciones $Con^{A_{1}}_{C_1 \rightarrow D_1}$, 
+$Con^{A_{2}}_{C_2 \rightarrow D_2}$, 
+$Con^{E_{1}}_{G_1 \rightarrow H_1}$, 
+$Con^{E_{2}}_{G_2 \rightarrow H_2}$. Para simplificar, si se denota un estado de la forma \K{XYZ} (es decir, tres letras dentro del ket) el mismo es un estado entrelazado GHZ. 
+\begin{align*}
+\ket{\psi_{1}} = &\ket{M_2 N_2}\ket{K_2 L_2}\ket{M_1 N_1} \ket{K_1 L_1} \\
+&  \ket{I_{22} J_{22}}  \ket{I_{21} J_{21}}  \ket{I_{12} J_{12}}  \ket{I_{11} J_{11}} \\
+&  \ket{E_2 F_2 H_2} \ket{A_2 B_2 D_2} \ket{E_1 F_1 H_1} \ket{A_1 B_1 D_1}
+\end{align*}
+En este paso, se entrelazaron y generaron 4 estados GHZ. \par \noindent
+\textbf{Paso 2:} Esta parte conecta el enlace troncal de repetidores, realizando $Con^{J_{11}}_{I_{12} \rightarrow J_{12}}$,
+$Rem_{J_{11} \rightarrow I_{11}}$,
+$Con^{J_{21}}_{I_{22} \rightarrow J_{22}}$,
+$Rem_{J_{21} \rightarrow I_{21}}$,
+resulta en:
+\begin{align*}
+\ket{\psi_{2}} = &\ket{M_2 N_2}\ket{K_2 L_2}\ket{M_1 N_1} \ket{K_1 L_1} \\
+& \ket{I_{21} J_{22}}  \ket{I_{11} J_{12}}  \\
+&  \ket{E_2 F_2 H_2} \ket{A_2 B_2 D_2} \ket{E_1 F_1 H_1} \ket{A_1 B_1 D_1}
+\end{align*}
+\textbf{Paso 3:} Pasa la información de las particiones ``D'' y ``H'' hacia el final del troncal, realizando $Add^{D_1 , H_1}_{I_{11}  \rightarrow J_{12}}$, $Add^{D_2 , H_2}_{I_{21}  \rightarrow J_{22}}$, sobre el grupo de estados de las repetidoras y los estados GHZ. Para mostrar mejor la cuenta se separan los estados.
+\begin{align*}
+\ket{\psi_{2}} = & \ket{M_2 N_2}\ket{K_2 L_2}\ket{M_1 N_1} \ket{K_1 L_1} \\
+& \ket{I_{11} J_{12}}  \ket{E_1 F_1 H_1} \ket{A_1 B_1 D_1}
+\qquad  \longleftarrow \text{Parte A, se aplica } \; Add^{D_1 , H_1}_{I_{11}  \rightarrow J_{12}} \\
+& \ket{I_{21} J_{22}}  \ket{E_2 F_2 H_2} \ket{A_2 B_2 D_2} 
+\qquad  \longleftarrow \text{Parte B, se aplica } \; Add^{D_2 , H_2}_{I_{21}  \rightarrow J_{22}} 
+\end{align*}
+\textit{Parte A:}
+\begin{align*}
+\ket{\psi_{3.A}} = & \ket{0}_{J_{12}}\ket{000000}_{E_1 F_1 H_1 A_1 B_1 D_1}+\ket{1}_{J_{12}}\ket{000111}_{E_1 F_1 H_1 A_1 B_1 D_1} \\
+& \ket{1}_{J_{12}}\ket{111000}_{E_1 F_1 H_1 A_1 B_1 D_1}+\ket{0}_{J_{12}}\ket{111111}_{E_1 F_1 H_1 A_1 B_1 D_1}
+\end{align*}
+\textit{Parte B:}
+\begin{align*}
+\ket{\psi_{3.B}} = 
+& \ket{0}_{J_{22}}\ket{000000}_{E_2 F_2 H_2 A_2 B_2 D_2}+\ket{1}_{J_{22}}\ket{000111}_{E_2 F_2 H_2 A_2 B_2 D_2} \\
+& \ket{1}_{J_{22}}\ket{111000}_{E_2 F_2 H_2 A_2 B_2 D_2}+\ket{0}_{J_{22}}\ket{111111}_{E_2 F_2 H_2 A_2 B_2 D_2}
+\end{align*}
+El estado final sería:
+\begin{align*}
+\ket{\psi_3} = \ket{M_2 N_2}\ket{K_2 L_2}\ket{M_1 N_1}\ket{K_1 L_1}\ket{\psi_{3.A}}\ket{\psi_{3.B}}
+\end{align*}
+\textbf{Paso 4:} Separando nuevamente las particiones
+\begin{align*}
+\ket{\psi_3} =& \ket{M_1 N_1}\ket{K_1 L_1}\ket{\psi_{3.A}} 
+                \qquad  \longleftarrow \text{Parte A} \\ 
+              & \ket{M_2 N_2}\ket{K_2 L_2}\ket{\psi_{3.B}}
+                \qquad  \longleftarrow \text{Parte B} 
+\end{align*}
+\textit{Parte A:}
+\begin{align*}
+\ket{\psi_{4.A}} = Fan^{J_{12}}_{K_1  \rightarrow L_1 , M_1  \rightarrow N_1} \ket{M_1 N_1}\ket{K_1 L_1} & \ket{\psi_{3.A}} \\
+=  Fan^{J_{12}}_{K_1  \rightarrow L_1 , M_1  \rightarrow N_1} \ket{M_1 N_1}\ket{K_1 L_1}
+&[ \ket{0}_{J_{12}}(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1} \\
+ +&\ket{1}_{J_{12}}(\ket{000111}+\ket{111000})_{E_1 F_1 H_1 A_1 B_1 D_1}]
+\end{align*}
+Al aplicar los CNOT.
+\begin{align*}
+\ket{\psi_{4.A}} = & \ket{0}_{J_{12}}(\ket{00}_{M_1 N_1}+\ket{11}_{M_1 N_1})(\ket{00}_{K_1 L_1}+\ket{11}_{K_1 L_1})(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1} \\
+ +&\ket{1}_{J_{12}}(\ket{10}_{M_1 N_1}+\ket{01}_{M_1 N_1})(\ket{10}_{K_1 L_1}+\ket{01}_{K_1 L_1})(\ket{000111}+\ket{111000})_{E_1 F_1 H_1 A_1 B_1 D_1}
+\end{align*}
+Se mide.
+\begin{align*}
+\ket{\psi_{4.A}} =  & \ket{0}_{J_{12}}\ket{0}_{N_1}\ket{0}_{L_1}(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1} \\
+ +&\ket{1}_{J_{12}}\ket{1}_{N_1}\ket{1}_{L_1}(\ket{000111}+\ket{111000})_{E_1 F_1 H_1 A_1 B_1 D_1}
+\end{align*}
+\textit{Parte B:} En esta parte se aplica $Fan^{J_{22}}_{K_2  \rightarrow L_2 , M_2  \rightarrow N_2}$ a los estados $\ket{M_2 N_2}\ket{K_2 L_2}\ket{\psi_{3.B}}$. El resultado y procedimiento es similar al de la parte A, sólo que cambian los subíndices de las particiones. Por lo tanto el estado final del paso 4 es:
+\begin{align*}
+\ket{\psi_4} = [ 
+  & \ket{000}_{J_{12} N_1 L_1}(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1}) \\
++ & \ket{111}_{J_{12} N_1 L_1}(\ket{000111}+\ket{111000})_{E_1 F_1 H_1 A_1 B_1 D_1})] \\ \otimes 
+[ & \ket{000}_{J_{22} N_2 L_2}(\ket{000000}+\ket{111111})_{E_2 F_2 H_2 A_2 B_2 D_2}) \\
++ & \ket{111}_{J_{22} N_2 L_2}(\ket{000111}+\ket{111000})_{E_2 F_2 H_2 A_2 B_2 D_2}) ]
+\end{align*}
+\textbf{Paso 5:} Se realizan varios CNOT, estos son $CNOT_{N_1 , F_1}$, 
+$CNOT_{N_2 , F_2}$, 
+$CNOT_{L_1 , B_1}$, 
+$CNOT_{L_2 , B_2}$. El estado final queda
+\begin{align*}
+\ket{\psi_5} = [ 
+  & \ket{000}_{J_{12} N_1 L_1}(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1}) \\
++ & \ket{111}_{J_{12} N_1 L_1}(\ket{010101}+\ket{101010})_{E_1 F_1 H_1 A_1 B_1 D_1}) ]\\ \otimes 
+[ & \ket{000}_{J_{22} N_2 L_2}(\ket{000000}+\ket{111111})_{E_2 F_2 H_2 A_2 B_2 D_2}) \\
++ & \ket{111}_{J_{22} N_2 L_2}(\ket{010101}+\ket{101010})_{E_2 F_2 H_2 A_2 B_2 D_2}) ]
+\end{align*}
+\textbf{Paso 6:} Operaciones Removal: $Rem_{N_1 \rightarrow J_{12}}$, 
+$Rem_{N_2 \rightarrow J_{22}}$, 
+$Rem_{L_1 \rightarrow J_{12}}$, 
+$Rem_{L_2 \rightarrow J_{22}}$. Queda como
+\begin{align*}
+\ket{\psi_6} = [ 
+  & \ket{0}_{J_{12}}(\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1}) \\
++ & \ket{1}_{J_{12}}(\ket{010101}+\ket{101010})_{E_1 F_1 H_1 A_1 B_1 D_1}) ]\\ \otimes 
+[ & \ket{0}_{J_{22}}(\ket{000000}+\ket{111111})_{E_2 F_2 H_2 A_2 B_2 D_2}) \\
++ & \ket{1}_{J_{22}}(\ket{010101}+\ket{101010})_{E_2 F_2 H_2 A_2 B_2 D_2}) ]
+ \end{align*} 
+\textbf{Paso 7:} Operaciones RemAdd que remueven las particiones ``$J_{12}$'' y ``$J_{22}$'', estas operaciones son  $RemAdd_{J_{12}  \rightarrow D_1 , H_1}$,
+ $RemAdd_{J_{22}  \rightarrow D_2 , H_2}$.
+ \begin{align*}
+ \ket{\psi_7} = [ 
+  & (\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1}) \\
++ & (\ket{010101}+\ket{101010})_{E_1 F_1 H_1 A_1 B_1 D_1}) ] \\ \otimes 
+[ & (\ket{000000}+\ket{111111})_{E_2 F_2 H_2 A_2 B_2 D_2}) \\
++ & (\ket{010101}+\ket{101010})_{E_2 F_2 H_2 A_2 B_2 D_2}) ]
+ \end{align*}
+Reescribiendo
+\begin{align*}
+ \ket{\psi_7} = [ 
+  & (\ket{000000}+\ket{111111})_{E_1 F_1 H_1 A_1 B_1 D_1})
++ (\ket{010101}+\ket{101010})_{E_1 F_1 H_1 A_1 B_1 D_1}) ]\\ \otimes 
+[ & (\ket{000000}+\ket{111111})_{E_2 F_2 H_2 A_2 B_2 D_2})
++(\ket{010101}+\ket{101010})_{E_2 F_2 H_2 A_2 B_2 D_2}) ]
+\end{align*}
+\textbf{Paso 8:} Operaciones Removal,  $Rem_{D_1  \rightarrow A_1}$,
+ $Rem_{D_2  \rightarrow A_2}$,
+ $Rem_{H_1  \rightarrow E_1}$,
+ $Rem_{H_2  \rightarrow E_2}$.
+\begin{align*}
+ \ket{\psi_8} = [ 
+  & (\ket{0000}+\ket{1111})_{E_1 F_1 A_1 B_1})
++ (\ket{0110}+\ket{1001})_{E_1 F_1 A_1 B_1}) ]\\ \otimes 
+[ & (\ket{0000}+\ket{1111})_{E_2 F_2 A_2 B_2 })
++ (\ket{0110}+\ket{1001})_{E_2 F_2A_2 B_2}) ]
+\end{align*}
+Esto puede sobreescribirse, para apreciar mejor el entrelazamiento requerido. Primero colocamos los subíndices de nuevo junto a los ket para referenciar mejor, y se eliminan paréntesis redundantes.
+\begin{align*}
+ \ket{\psi_f} = [ 
+  & \ket{0000}_{E_1 F_1 A_1 B_1}+\ket{1111}_{E_1 F_1 A_1 B_1}
++ \ket{0110}_{E_1 F_1 A_1 B_1}+\ket{1001}_{E_1 F_1 A_1 B_1} ]\\ \otimes 
+[ & \ket{0000}_{E_2 F_2 A_2 B_2 }+\ket{1111}_{E_2 F_2 A_2 B_2 }
++ \ket{0110}_{E_2 F_2 A_2 B_2 }+\ket{1001}_{E_2 F_2 A_2 B_2 } ]
+\end{align*}
+Separamos nuevamente las particiones, para apreciar mejor cada una.
+\begin{align*}
+ \ket{\psi_f} = [ 
+  & \ket{0}_{E_1}(\ket{000}_{F_1 A_1 B_1}+\ket{110}_{F_1 A_1 B_1})
+  + \ket{1}_{E_1}(\ket{111}_{F_1 A_1 B_1}+\ket{001}_{F_1 A_1 B_1}) ]\\ \otimes 
+[ & \ket{0}_{E_2}(\ket{000}_{F_2 A_2 B_2}+\ket{110}_{F_2 A_2 B_2})
+  + \ket{1}_{E_2}(\ket{111}_{F_2 A_2 B_2}+\ket{001}_{F_2 A_2 B_2}) ]
+\end{align*}
+Ahora factorizamos la partición ``$B_1$'' y ``$B_2$''.
+\begin{align*}
+ \ket{\psi_f} = [ 
+  & \ket{0}_{E_1}(\ket{00}_{F_1 A_1}+\ket{11}_{F_1 A_1})\ket{0}_{B_1}
+  + \ket{1}_{E_1}(\ket{11}_{F_1 A_1}+\ket{00}_{F_1 A_1})\ket{1}_{B_1} ]\\ \otimes 
+[ & \ket{0}_{E_2}(\ket{00}_{F_2 A_2}+\ket{11}_{F_2 A_2})\ket{0}_{B_2}
+  + \ket{1}_{E_2}(\ket{11}_{F_2 A_2}+\ket{00}_{F_2 A_2})\ket{1}_{B_2} ]
+\end{align*}
+Reordenando particiones (dado que no se están realizando operaciones ya) se puede ver.
+\begin{align*}
+ \ket{\psi_f} = [ 
+  & \ket{0}_{E_1}\ket{0}_{B_1}(\ket{00}_{F_1 A_1}+\ket{11}_{F_1 A_1})
+  + \ket{1}_{E_1}\ket{1}_{B_1}(\ket{11}_{F_1 A_1}+\ket{00}_{F_1 A_1}) ]\\ \otimes 
+[ & \ket{0}_{E_2}\ket{0}_{B_2}(\ket{00}_{F_2 A_2}+\ket{11}_{F_2 A_2})
+  + \ket{1}_{E_2}\ket{1}_{B_2}(\ket{11}_{F_2 A_2}+\ket{00}_{F_2 A_2}) ]
+\end{align*}
+Factorizando.
+\begin{align*}
+ \ket{\psi_f} = [ 
+  & (\ket{0}_{E_1}\ket{0}_{B_1}+\ket{1}_{E_1}\ket{1}_{B_1})(\ket{00}_{F_1 A_1}+\ket{11}_{F_1 A_1})]\\ \otimes 
+[ & (\ket{0}_{E_2}\ket{0}_{B_2}+\ket{1}_{E_2}\ket{1}_{B_2})(\ket{00}_{F_2 A_2}+\ket{11}_{F_2 A_2}) ]
+\end{align*}
+Visto de una mejor manera, se aprecian los cuatro estados entrelazados.
+\begin{align*}
+ \ket{\psi_f} =  
+  & (\ket{00}_{B_1 E_1}+\ket{11}_{B_1 E_1})\otimes (\ket{00}_{F_1 A_1}+\ket{11}_{F_1 A_1})\\ \otimes 
+ & (\ket{00}_{B_2 E_2}+\ket{11}_{B_2 E_2})\otimes (\ket{00}_{F_2 A_2}+\ket{11}_{F_2 A_2}) 
+\end{align*}
+\end{document}
